@@ -1,10 +1,15 @@
 import Image from "next/image";
 import { Button, Eyebrow } from "@/components/ui";
+import { TrustStrip } from "@/components/homepage/trust-strip";
 
 export function Hero() {
   return (
     <section className="hero shell" id="top">
       <div className="hero__copy">
+        <div className="hero__note">
+          <span className="hero__stamp">Made in Nepal</span>
+          <span>From the Himalayas,<br />for your best friend.</span>
+        </div>
         <Eyebrow>Himalayan-made • US available</Eyebrow>
         <h1>
           A longer-lasting chew, <em>rooted in Nepal.</em>
@@ -18,14 +23,6 @@ export function Hero() {
           <a className="text-link" href="/story">
             Our story <span>↘</span>
           </a>
-        </div>
-        <div className="hero__note">
-          <span className="hero__stamp">Made in Nepal</span>
-          <span>
-            From the Himalayas,
-            <br />
-            for your best friend.
-          </span>
         </div>
       </div>
       <div
@@ -41,6 +38,7 @@ export function Hero() {
           priority
         />
       </div>
+      <TrustStrip />
     </section>
   );
 }

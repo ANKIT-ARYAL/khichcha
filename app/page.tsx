@@ -1,6 +1,5 @@
 import { HomepageLoader } from "@/components/homepage-loader";
 import { Hero } from "@/components/homepage/hero";
-import { TrustStrip } from "@/components/homepage/trust-strip";
 import { PromoBanner } from "@/components/homepage/promo-banner";
 import { ProductSection } from "@/components/homepage/product-section";
 import { BenefitsSection } from "@/components/homepage/benefits-section";
@@ -20,7 +19,6 @@ export default async function Home() {
     <HomepageLoader>
       <main>
         <Hero />
-        <TrustStrip />
         <PromoBanner />
         <ProductSection products={products} />
         <BenefitsSection />

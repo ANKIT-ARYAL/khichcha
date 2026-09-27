@@ -4,7 +4,9 @@ import { Breadcrumbs } from "@/components/breadcrumbs";
 export default function StoryPage() {
   return (
     <main className="inner-page shell story-page">
-      <Breadcrumbs current="Our story" />
+      <div className="story-breadcrumb-rail">
+        <Breadcrumbs current="Our story" />
+      </div>
       <div className="story-page__hero">
         <Image
           className="inner-page__image"
@@ -20,7 +22,7 @@ export default function StoryPage() {
           <em>for your best friend.</em>
         </h1>
         <div className="story-page__hero-copy py-24">
-          <span className="eyebrow">Our story</span>
+          <span className="eyebrow pt-16">Our story</span>
           <h2>Our story</h2>
           <p>
             Meet KHICHCHA, a yak milk cheese dog chew made in Nepal and rooted
