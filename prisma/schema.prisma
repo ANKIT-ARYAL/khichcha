@@ -1,0 +1,86 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Product {
+  id String @id @default(uuid()) @db.Uuid
+  slug String @unique
+  name String
+  size String
+  description String @default("")
+  amazonUrl String @default("") @map("amazon_url")
+  imageUrl String @default("") @map("image_url")
+  details String @default("")
+  brandName String @default("") @map("brand_name")
+  flavor String @default("")
+  ageRangeDescription String @default("") @map("age_range_description")
+  itemForm String @default("") @map("item_form")
+  specificUsesForProduct String @default("") @map("specific_uses_for_product")
+  specialIngredients String @default("") @map("special_ingredients")
+  containerType String @default("") @map("container_type")
+  breedRecommendation String @default("") @map("breed_recommendation")
+  dogBreedSize String @default("") @map("dog_breed_size")
+  animalFoodIngredientClaim String @default("") @map("animal_food_ingredient_claim")
+  productBenefits String @default("") @map("product_benefits")
+  animalFoodNutrientContentClaim String @default("") @map("animal_food_nutrient_content_claim")
+  upc String @default("")
+  additionalFeatures String @default("") @map("additional_features")
+  recommendedUsesForProduct String @default("") @map("recommended_uses_for_product")
+  animalFoodDietType String @default("") @map("animal_food_diet_type")
+  itemShape String @default("") @map("item_shape")
+  targetSpecies String @default("") @map("target_species")
+  petType String @default("") @map("pet_type")
+  manufacturer String @default("")
+  asin String @default("")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  @@map("products")
+}
+
+model PromotionalBanner {
+  id String @id @default(uuid()) @db.Uuid
+  slug String @unique
+  eyebrow String @default("")
+  headline String @default("")
+  body String @default("")
+  ctaLabel String @default("") @map("cta_label")
+  ctaUrl String @default("") @map("cta_url")
+  isActive Boolean @default(false) @map("is_active")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  @@map("promotional_banners")
+}
+
+model SiteContent {
+  key String @id
+  value Json
+  updatedAt DateTime @updatedAt @map("updated_at")
+  @@map("site_content")
+}
+
+model Review {
+  id String @id @default(uuid()) @db.Uuid
+  name String
+  quote String
+  meta String @default("")
+  isPublished Boolean @default(true) @map("is_published")
+  createdAt DateTime @default(now()) @map("created_at")
+  @@map("reviews")
+}
+
+model Message {
+  id        String   @id @default(uuid()) @db.Uuid
+  name      String
+  email     String
+  message   String
+  isRead    Boolean  @default(false) @map("is_read")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@index([createdAt])
+  @@map("messages")
+}

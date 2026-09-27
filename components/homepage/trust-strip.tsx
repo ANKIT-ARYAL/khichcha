@@ -1,0 +1,1 @@
+export function TrustStrip() { return <div className="trust-strip"><div className="shell trust-strip__inner"><span>Yak & cow milk</span><i /><span>Handcrafted in Nepal</span><i /><span>Made for slow chewing</span><i /><span>Sold on Amazon</span></div></div>; }

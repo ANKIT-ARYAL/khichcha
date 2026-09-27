@@ -1,0 +1,4 @@
+import { Eyebrow, SectionHeading } from "@/components/ui";
+import type { ReviewData } from "@/lib/reviews";
+
+export function ReviewsSection({ reviews }: { reviews: ReviewData[] }) { return <section className="section shell reviews" id="reviews"><div className="reviews__header"><div><Eyebrow>From the pack</Eyebrow><SectionHeading>Good words from<br /><em>good people.</em></SectionHeading></div><a className="text-link" href="https://www.amazon.com/dp/B0H535NKCW" target="_blank" rel="noreferrer">Read more on Amazon ↗</a></div><div className="review-grid">{reviews.map((review) => <figure className="review" key={review.id || review.name}><div className="stars" aria-label="5 out of 5 stars">★★★★★</div><blockquote>“{review.quote}”</blockquote><figcaption>{review.name}<small>{review.meta}</small></figcaption></figure>)}</div></section>; }
