@@ -9,5 +9,5 @@ export function HomepageLoader({ children }: { children: ReactNode }) {
     const timer = window.setTimeout(() => setVisible(false), 1650);
     return () => window.clearTimeout(timer);
   }, []);
-  return <div className="homepage-shell">{visible && <div className="homepage-loader" aria-label="Loading KHICHCHA" role="status"><Image className="homepage-loader__logo" src="/khichcha-mark.png" alt="KHICHCHA" width={1421} height={1107} priority /></div>}{children}</div>;
+  return <div className="homepage-shell">{visible && <div className="homepage-loader" aria-label="Loading Aathmandu" role="status"><Image className="homepage-loader__logo" src="/logo-transparent.png" alt="Aathmandu" width={1254} height={1254} priority /></div>}{children}</div>;
 }

@@ -1299,6 +1299,39 @@ details p {
     transition: none !important;
   }
 }
+
+/* Story hero: keep the manifesto and supporting copy in separate vertical
+   bands. Several older composition rules target these selectors, so this
+   final block is intentionally the single source of truth for the page. */
+.story-page__hero > .story-page__title {
+  top: clamp(5.5rem, 10vw, 9rem);
+  left: clamp(1.25rem, 6.5vw, 7rem);
+  width: min(62%, 1120px);
+  font-size: clamp(3rem, 6vw, 6rem);
+  line-height: 1.02;
+}
+
+.story-page__hero-copy {
+  top: clamp(25rem, 54%, 34rem);
+  left: clamp(1.25rem, 6.5vw, 7rem);
+  width: min(40%, 560px);
+  transform: none;
+}
+
+@media (max-width: 760px) {
+  .story-page__hero > .story-page__title {
+    top: 4.5rem;
+    left: 1.25rem;
+    width: calc(100% - 2.5rem);
+    font-size: clamp(2.35rem, 10vw, 4rem);
+  }
+
+  .story-page__hero-copy {
+    top: 38%;
+    left: 1.25rem;
+    width: calc(100% - 2.5rem);
+  }
+}
 .story__image {
   display: block;
   width: 100%;
