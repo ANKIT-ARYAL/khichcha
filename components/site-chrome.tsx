@@ -14,19 +14,32 @@ export function SiteChrome({ children }: { children: React.ReactNode }) {
   useLayoutEffect(() => {
     if (admin || !ref.current) return;
     const root = ref.current;
-    const targets = root.querySelectorAll<HTMLElement>("main h1, main h2, main h3, main p, main .eyebrow, main .button, main .text-link, main label, main .product-card, main .review, main details, main .inner-page__image, main .contact-form");
+    const targets = root.querySelectorAll<HTMLElement>(
+      "main h1, main h2, main h3, main p, main .eyebrow, main .button, main .text-link, main label, main .product-card, main .review, main details, main .inner-page__image, main .contact-form",
+    );
     targets.forEach((target) => target.classList.add("reveal-target"));
     root.classList.add("reveal-ready");
-    const observer = new IntersectionObserver((entries) => entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("is-visible");
-        observer.unobserve(entry.target);
-      }
-    }), { threshold: 0.05, rootMargin: "0px 0px -4%" });
+    const observer = new IntersectionObserver(
+      (entries) =>
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+        }),
+      { threshold: 0.05, rootMargin: "0px 0px -4%" },
+    );
     targets.forEach((target) => observer.observe(target));
     return () => observer.disconnect();
   }, [admin]);
 
   if (admin) return <>{children}</>;
-  return <div className="public-site" ref={ref}><Navbar />{children}<Footer /><FloatingContact /></div>;
+  return (
+    <div className="public-site" ref={ref}>
+      <Navbar />
+      {children}
+      <Footer />
+      <FloatingContact />
+    </div>
+  );
 }

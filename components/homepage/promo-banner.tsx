@@ -1,3 +1,21 @@
 import { getActiveBanner } from "@/lib/supabase-rest";
 
-export async function PromoBanner() { const banner = await getActiveBanner(); if (!banner) return null; return <section className="promo-banner shell"><span className="eyebrow">{banner.eyebrow}</span><strong>{banner.headline}</strong><p>{banner.body}</p>{banner.ctaUrl && <a className="text-link" href={banner.ctaUrl} target="_blank" rel="noreferrer">{banner.ctaLabel || "Learn more"} ↗</a>}</section>; }
+export async function PromoBanner() {
+  const banner = await getActiveBanner();
+  if (!banner || !banner.imageUrl) return null;
+  return (
+    <section className="promo-banner shell">
+      <img
+        src={banner.imageUrl}
+        alt="Promotional Banner"
+        style={{
+          width: "100%",
+          aspectRatio: "16/9",
+          objectFit: "cover",
+          display: "block",
+          borderRadius: "clamp(0.5rem, 2vw, 1rem)",
+        }}
+      />
+    </section>
+  );
+}

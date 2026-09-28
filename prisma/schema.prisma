@@ -5,6 +5,7 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 model Product {
@@ -45,11 +46,7 @@ model Product {
 model PromotionalBanner {
   id String @id @default(uuid()) @db.Uuid
   slug String @unique
-  eyebrow String @default("")
-  headline String @default("")
-  body String @default("")
-  ctaLabel String @default("") @map("cta_label")
-  ctaUrl String @default("") @map("cta_url")
+  imageUrl String @default("") @map("image_url")
   isActive Boolean @default(false) @map("is_active")
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
@@ -83,4 +80,19 @@ model Message {
 
   @@index([createdAt])
   @@map("messages")
+}
+
+model Blog {
+  id        String   @id @default(uuid()) @db.Uuid
+  slug      String   @unique
+  title     String
+  excerpt   String   @default("")
+  content   String
+  imageUrl  String   @default("") @map("image_url")
+  isPublished Boolean @default(true) @map("is_published")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@index([createdAt])
+  @@map("blogs")
 }

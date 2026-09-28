@@ -1,6 +1,42 @@
 import { NextResponse } from "next/server";
 import { isAdminAuthenticated } from "@/lib/admin-auth";
+import { uploadImage } from "@/lib/supabase-rest";
 import { prisma } from "@/lib/prisma";
-export async function GET() { if (!(await isAdminAuthenticated())) return NextResponse.json({ error: "Unauthorized" }, { status: 401 }); try { return NextResponse.json(await prisma.promotionalBanner.findUnique({ where: { slug: "primary" } })); } catch (error) { return NextResponse.json({ error: error instanceof Error ? error.message : "Unable to load banner." }, { status: 500 }); } }
-export async function POST(request: Request) { if (!(await isAdminAuthenticated())) return NextResponse.json({ error: "Unauthorized" }, { status: 401 }); try { const payload = await request.json(); const banner = await prisma.promotionalBanner.upsert({ where: { slug: "primary" }, update: { eyebrow: String(payload.eyebrow || ""), headline: String(payload.headline || ""), body: String(payload.body || ""), ctaLabel: String(payload.ctaLabel || ""), ctaUrl: String(payload.ctaUrl || ""), isActive: Boolean(payload.isActive) }, create: { slug: "primary", eyebrow: String(payload.eyebrow || ""), headline: String(payload.headline || ""), body: String(payload.body || ""), ctaLabel: String(payload.ctaLabel || ""), ctaUrl: String(payload.ctaUrl || ""), isActive: Boolean(payload.isActive) } }); return NextResponse.json(banner); } catch (error) { return NextResponse.json({ error: error instanceof Error ? error.message : "Unable to save banner." }, { status: 500 }); } }
-export async function DELETE() { if (!(await isAdminAuthenticated())) return NextResponse.json({ error: "Unauthorized" }, { status: 401 }); try { await prisma.promotionalBanner.deleteMany({ where: { slug: "primary" } }); return NextResponse.json({ ok: true }); } catch (error) { return NextResponse.json({ error: error instanceof Error ? error.message : "Unable to delete banner." }, { status: 500 }); } }
+
+export async function GET() { 
+  if (!(await isAdminAuthenticated())) return NextResponse.json({ error: "Unauthorized" }, { status: 401 }); 
+  try { return NextResponse.json(await prisma.promotionalBanner.findUnique({ where: { slug: "primary" } })); } 
+  catch (error) { return NextResponse.json({ error: error instanceof Error ? error.message : "Unable to load banner." }, { status: 500 }); } 
+}
+
+export async function POST(request: Request) { 
+  if (!(await isAdminAuthenticated())) return NextResponse.json({ error: "Unauthorized" }, { status: 401 }); 
+  try { 
+    const form = await request.formData();
+    const existing = await prisma.promotionalBanner.findUnique({ where: { slug: "primary" } }).catch(() => null);
+    
+    let imageUrl = existing?.imageUrl || "";
+    const file = form.get("image");
+    if (file instanceof File && file.size > 0) {
+      const extension = file.name.split(".").pop()?.toLowerCase() || "jpg";
+      imageUrl = await uploadImage(file, `banners/primary-${Date.now()}.${extension}`);
+    }
+
+    const isActive = form.get("isActive") === "on";
+
+    const banner = await prisma.promotionalBanner.upsert({ 
+      where: { slug: "primary" }, 
+      update: { imageUrl, isActive }, 
+      create: { slug: "primary", imageUrl, isActive } 
+    }); 
+    return NextResponse.json(banner); 
+  } catch (error) { 
+    return NextResponse.json({ error: error instanceof Error ? error.message : "Unable to save banner." }, { status: 500 }); 
+  } 
+}
+
+export async function DELETE() { 
+  if (!(await isAdminAuthenticated())) return NextResponse.json({ error: "Unauthorized" }, { status: 401 }); 
+  try { await prisma.promotionalBanner.deleteMany({ where: { slug: "primary" } }); return NextResponse.json({ ok: true }); } 
+  catch (error) { return NextResponse.json({ error: error instanceof Error ? error.message : "Unable to delete banner." }, { status: 500 }); } 
+}

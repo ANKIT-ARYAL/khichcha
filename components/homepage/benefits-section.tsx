@@ -14,7 +14,11 @@ const benefits = [
     "Nothing extra. Just honest ingredients and a chew your dog can enjoy.",
   ],
 ];
-export function BenefitsSection() {
+export function BenefitsSection({ content }: { content?: string }) {
+  const customBenefits = content
+    ? content.split(/[\n,]+/).map((s) => s.trim()).filter(Boolean)
+    : null;
+
   return (
     <section className="benefits-band" id="benefits">
       <div className="shell benefits">
@@ -27,13 +31,20 @@ export function BenefitsSection() {
           </h2>
         </div>
         <div className="benefits__list">
-          {benefits.map(([title, description], i) => (
-            <div className="benefit" key={title}>
-              <span>0{i + 1}</span>
-              <h3>{title}</h3>
-              <p>{description}</p>
-            </div>
-          ))}
+          {customBenefits
+            ? customBenefits.map((title, i) => (
+                <div className="benefit" key={i}>
+                  <span>0{i + 1}</span>
+                  <h3>{title}</h3>
+                </div>
+              ))
+            : benefits.map(([title, description], i) => (
+                <div className="benefit" key={title}>
+                  <span>0{i + 1}</span>
+                  <h3>{title}</h3>
+                  <p>{description}</p>
+                </div>
+              ))}
         </div>
       </div>
     </section>
