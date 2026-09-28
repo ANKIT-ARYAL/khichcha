@@ -11,5 +11,10 @@ export async function GET() {
       prisma.message.count(), prisma.message.count({ where: { isRead: false } }),
     ]);
     return NextResponse.json({ products, banners, content, reviews, publishedReviews, messages, unreadMessages });
-  } catch (error) { return NextResponse.json({ error: error instanceof Error ? error.message : "Unable to load dashboard." }, { status: 500 }); }
+  } catch (error) {
+    // Keep connection details, hostnames, and Prisma internals out of the
+    // production UI. The server logs still contain the original error.
+    console.error("Admin overview database query failed", error);
+    return NextResponse.json({ error: "Dashboard data is temporarily unavailable. Check the production database connection." }, { status: 503 });
+  }
 }

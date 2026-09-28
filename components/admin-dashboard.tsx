@@ -48,7 +48,7 @@ export default function AdminDashboard() {
       if (productsResponse.ok) setProducts(await productsResponse.json());
       if (reviewsResponse.ok) setReviews(await reviewsResponse.json());
       if (messagesResponse.ok) setMessages(await messagesResponse.json());
-      if (!overviewResponse.ok) setStatus(await errorMessage(overviewResponse, "Unable to load dashboard.")); else setStatus("");
+      if (!overviewResponse.ok) setStatus(await errorMessage(overviewResponse, "Dashboard data is temporarily unavailable. Check the production database connection.")); else setStatus("");
       return;
     }
     const endpoint = nextTab === "products" ? "/api/admin/products" : nextTab === "banner" ? "/api/admin/banners" : nextTab === "content" ? "/api/admin/content" : nextTab === "reviews" ? "/api/admin/reviews" : "/api/admin/messages";
