@@ -285,7 +285,7 @@ export function BlogEditor({
       />
 
       {/* Hidden input preserves standard HTML form data submit */}
-      <input ref={inputRef} type="hidden" name={name} id={`blog-editor-${name}-value`} />
+      <input ref={inputRef} type="hidden" name={name} id={`blog-editor-${name}-value`} defaultValue={initialHtml} />
     </div>
   );
 }

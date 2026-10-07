@@ -23,7 +23,7 @@ export default async function BlogPost({
       <h1>{blog.title}</h1>
       <div className="blog-post__layout">
         <article className="blog-post__main">
-          <p className="blog-post__excerpt">{blog.excerpt}</p>
+          <div className="blog-post__excerpt" dangerouslySetInnerHTML={{ __html: blog.excerpt }} />
           <div
             className="blog-post__content text-justify tracking-tighter"
             dangerouslySetInnerHTML={{ __html: blog.content }}

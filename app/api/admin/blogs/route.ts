@@ -16,7 +16,7 @@ export async function GET() {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   try {
     return NextResponse.json(
-      await prisma.blog.findMany({ orderBy: { createdAt: "desc" }, select: { id: true, slug: true, title: true, excerpt: true, imageUrl: true, isPublished: true } }),
+      await prisma.blog.findMany({ orderBy: { createdAt: "desc" }, select: { id: true, slug: true, title: true, excerpt: true, content: true, imageUrl: true, isPublished: true } }),
     );
   } catch (error) {
     console.error("Admin blogs database query failed", error);

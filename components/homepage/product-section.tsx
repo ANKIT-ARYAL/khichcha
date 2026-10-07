@@ -7,7 +7,10 @@ export function ProductSection({ products }: { products: ProductData[] }) {
     <section className="section shell" id="shop">
       <div className="section-intro section-intro--chew text-center">
         <Eyebrow>The chew</Eyebrow>
-        <SectionHeading>Good things take a little longer.</SectionHeading>
+        <SectionHeading>Good things take
+          <br />
+          <em className="color: var(--brown);">a little longer.</em>
+        </SectionHeading>
         <p>
           Not a treat that disappears in seconds. KHICHCHA is a firm, flavorful
           chew that keeps curious mouths engaged and happy.
